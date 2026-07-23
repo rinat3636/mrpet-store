@@ -2,8 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { ShoppingCart, Menu, X } from 'lucide-react';
-import { useCart } from '../lib/cart';
+import { ExternalLink, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { assetUrl } from '../lib/assets';
 
@@ -15,8 +14,8 @@ const nav = [
 ];
 
 export function Header() {
-  const { count, setIsOpen } = useCart();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const ozonUrl = process.env.NEXT_PUBLIC_OZON_URL;
 
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
@@ -34,14 +33,17 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          <button onClick={() => setIsOpen(true)} className="relative rounded-full p-2 transition hover:bg-gray-50 active:scale-95" aria-label="Корзина">
-            <ShoppingCart className="h-6 w-6 text-ink" />
-            {count > 0 && (
-              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-xs font-bold text-ink">
-                {count}
-              </span>
-            )}
-          </button>
+          {ozonUrl ? (
+            <a
+              href={ozonUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-brand py-2 px-4 text-sm"
+            >
+              <span className="hidden sm:inline">Заказать</span>
+              <ExternalLink className="h-4 w-4 sm:hidden" />
+            </a>
+          ) : null}
           <button className="rounded-full p-2 transition hover:bg-gray-50 active:scale-95 md:hidden" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Меню">
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -56,6 +58,11 @@ export function Header() {
                 {n.label}
               </Link>
             ))}
+            {ozonUrl && (
+              <a href={ozonUrl} target="_blank" rel="noopener noreferrer" className="btn-brand w-full text-center">
+                Заказать
+              </a>
+            )}
           </div>
         </div>
       )}

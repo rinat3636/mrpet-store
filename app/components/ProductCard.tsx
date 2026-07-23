@@ -2,28 +2,14 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useCart } from '../lib/cart';
 import { formatPriceShort } from '../lib/utils';
 import { assetUrl } from '../lib/assets';
-import { ShoppingCart } from 'lucide-react';
 import { ProductWithRelations } from '../lib/types';
 
 export function ProductCard({ product }: { product: ProductWithRelations }) {
-  const { addItem } = useCart();
   const image = product.images?.[0]?.url;
   const price = product.price;
   const ozonUrl = process.env.NEXT_PUBLIC_OZON_URL;
-
-  const handleAdd = () => {
-    if (!price) return;
-    addItem({
-      productId: product.id,
-      name: product.name,
-      price,
-      quantity: 1,
-      image,
-    });
-  };
 
   const priceLabel = price ? formatPriceShort(price) : ozonUrl ? 'Цена на Ozon' : 'Цена по запросу';
 
@@ -59,12 +45,8 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
             Заказать
           </a>
         ) : (
-          <button
-            onClick={handleAdd}
-            disabled={!price}
-            className="btn-brand py-2 px-4 text-sm disabled:opacity-50"
-          >
-            <ShoppingCart className="mr-2 h-4 w-4" /> В корзину
+          <button disabled className="btn-brand py-2 px-4 text-sm disabled:opacity-50">
+            Скоро в продаже
           </button>
         )}
       </div>

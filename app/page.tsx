@@ -4,7 +4,7 @@ import { getProducts } from './lib/products';
 import { ProductCard } from './components/ProductCard';
 import { SectionTitle } from './components/SectionTitle';
 import { assetUrl } from './lib/assets';
-import { Check, X, ArrowRight, ShieldCheck, Award, Truck, Leaf, Heart, Activity, Sparkles } from 'lucide-react';
+import { Check, X, ArrowRight, ExternalLink, ShieldCheck, Award, Truck, Leaf, Heart, Activity, Sparkles } from 'lucide-react';
 import { LightboxImage } from './components/LightboxImage';
 import { ScrollReveal } from './components/ScrollReveal';
 
@@ -43,10 +43,12 @@ export default async function HomePage() {
               Многофункциональные витамины 5В1 для собак всех пород. 90 натуральных снеков для суставов, сердца, кишечника, кожи и печени.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link href={product ? `/catalog/${product.slug}` : '/catalog'} className="btn-brand">
-                Перейти к товару <ArrowRight className="ml-2 h-4 w-4" />
+              <a href={process.env.NEXT_PUBLIC_OZON_URL || '/catalog'} target="_blank" rel="noopener noreferrer" className="btn-brand animate-pulse-glow">
+                Заказать на Ozon <ExternalLink className="ml-2 h-4 w-4" />
+              </a>
+              <Link href={product ? `/catalog/${product.slug}` : '/catalog'} className="btn-outline">
+                Подробнее <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
-              <Link href="/catalog" className="btn-outline">В каталог</Link>
             </div>
           </div>
           <ScrollReveal animation="reveal-scale" className="flex justify-center" threshold={0.1}>

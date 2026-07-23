@@ -1,40 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { useCart } from '../lib/cart';
 import { formatPriceShort } from '../lib/utils';
-import { Minus, Plus, ShoppingCart, Package, ExternalLink } from 'lucide-react';
+import { Minus, Plus, Package, ExternalLink, Bone, Heart, Leaf, ShieldCheck } from 'lucide-react';
 import { ProductWithRelations } from '../lib/types';
 
 export function ProductActions({ product }: { product: ProductWithRelations }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0]?.id ?? '');
-  const { addItem, setIsOpen } = useCart();
 
   const variant = product.variants?.find((v) => v.id === selectedVariant);
   const price = variant?.price ?? product.price;
   const ozonUrl = process.env.NEXT_PUBLIC_OZON_URL;
-  const priceLabel = price ? formatPriceShort(price) : ozonUrl ? 'Цена на Ozon' : formatPriceShort(price);
-
-  const handleAdd = () => {
-    if (!price) {
-      alert('Цена пока не установлена. Заполните цену в админ-панели.');
-      return;
-    }
-    addItem({
-      productId: product.id,
-      variantId: selectedVariant || undefined,
-      variantName: variant?.name,
-      name: product.name,
-      price,
-      quantity,
-      image: product.images?.[0]?.url,
-    });
-    setIsOpen(true);
-  };
+  const priceLabel = price ? formatPriceShort(price) : ozonUrl ? 'Цена на Ozon' : 'Цена по запросу';
 
   return (
-    <div className="group rounded-3xl border border-gray-100 bg-white p-5 shadow-lg transition-shadow duration-300 hover:shadow-xl lg:p-6">
+    <div id="product-cta" className="group rounded-3xl border border-gray-100 bg-white p-5 shadow-lg transition-shadow duration-300 hover:shadow-xl lg:p-6">
       <div className="mb-5 flex items-baseline gap-3">
         <span className="text-xl font-extrabold text-ink md:text-2xl">{priceLabel}</span>
         {product.oldPrice && price && (
@@ -87,13 +68,18 @@ export function ProductActions({ product }: { product: ProductWithRelations }) {
           <ExternalLink className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" /> Заказать
         </a>
       ) : (
-        <button onClick={handleAdd} disabled={!price} className="btn-brand w-full text-base md:text-lg disabled:opacity-50">
-          <ShoppingCart className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" /> В корзину
+        <button disabled className="btn-brand w-full text-base md:text-lg disabled:opacity-50">
+          Скоро в продаже
         </button>
       )}
 
-      {!price && !ozonUrl && (
-        <p className="mt-4 text-sm text-amber-600">Цена не установлена. Укажите её в админ-панели, чтобы товар стал доступен для покупки.</p>
+      {ozonUrl && (
+        <ul className="mt-5 grid grid-cols-2 gap-2 text-sm text-muted">
+          <li className="flex items-center gap-2"><Bone className="h-4 w-4 flex-shrink-0 text-brand" /> Здоровые суставы</li>
+          <li className="flex items-center gap-2"><Heart className="h-4 w-4 flex-shrink-0 text-brand" /> Крепкое сердце</li>
+          <li className="flex items-center gap-2"><Leaf className="h-4 w-4 flex-shrink-0 text-brand" /> Улучшенная кожа</li>
+          <li className="flex items-center gap-2"><ShieldCheck className="h-4 w-4 flex-shrink-0 text-brand" /> Иммунитет</li>
+        </ul>
       )}
     </div>
   );
