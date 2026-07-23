@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mr.Pet — интернет-магазин
 
-## Getting Started
+Полноценный интернет-магазин на Next.js + Prisma + Tailwind CSS с интеграцией **ЮKassa**.
 
-First, run the development server:
+## Особенности
+
+- Дизайн, цвета и контент построены на основе предоставленных макетов Mr.Pet.
+- Каталог, карточка товара, корзина, оформление заказа.
+- Оплата через **ЮKassa** (перенаправление на платёжный шлюз, webhook-уведомления).
+- Админ-панель для управления ценами, остатками и заказами.
+- Легко масштабируется: поддержка PostgreSQL через `DATABASE_URL`.
+
+## Быстрый старт
 
 ```bash
+npm install
+cp .env.example .env
+# заполните YOOKASSA_SHOP_ID, YOOKASSA_SECRET_KEY, ADMIN_PASSWORD и контактные данные
+npx prisma migrate dev
+npm run seed
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Откройте http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Админ-панель
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+http://localhost:3000/admin  
+Пароль задаётся в переменной `ADMIN_PASSWORD`.
 
-## Learn More
+## Наполнение и цены
 
-To learn more about Next.js, take a look at the following resources:
+Цены на товары изначально не заполнены (данные отсутствуют в исходных материалах). Установите цены через админ-панель. Пока цена не задана, товар отображается как «Цена по запросу» и не добавляется в корзину.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## ЮKassa
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Получите `shopId` и `secretKey` в личном кабинете ЮKassa.
+2. Укажите их в `.env`.
+3. Установите в кабинете ЮKassa webhook URL: `https://ваш-домен.рф/api/webhook`.
+4. В `.env` задайте `NEXT_PUBLIC_SITE_URL` и `YOOKASSA_RETURN_URL`.
 
-## Deploy on Vercel
+## Docker
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+docker compose up --build -d
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Переменные окружения
+
+| Переменная | Описание |
+|------------|----------|
+| `DATABASE_URL` | SQLite по умолчанию; для PostgreSQL замените строку подключения |
+| `NEXT_PUBLIC_SITE_URL` | Публичный URL сайта |
+| `YOOKASSA_SHOP_ID` | Идентификатор магазина ЮKassa |
+| `YOOKASSA_SECRET_KEY` | Секретный ключ ЮKassa |
+| `YOOKASSA_RETURN_URL` | URL возврата после оплаты |
+| `ADMIN_PASSWORD` | Пароль входа в админ-панель |
+| `COMPANY_*` | Реквизиты и контакты компании |

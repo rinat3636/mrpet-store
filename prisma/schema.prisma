@@ -1,0 +1,100 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  slug        String   @unique
+  name        String
+  subtitle    String?
+  description String?
+  price       Int? // price in kopecks, null until filled
+  oldPrice    Int?
+  sku         String?  @unique
+  stock       Int      @default(0)
+  weightGrams Int?
+  pieces      Int? // e.g. 90 pills
+  isActive    Boolean  @default(true)
+  images      Image[]
+  variants    Variant[]
+  attributes  Attribute[]
+  orderItems  OrderItem[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Image {
+  id        String  @id @default(cuid())
+  url       String
+  alt       String?
+  sortOrder Int     @default(0)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Variant {
+  id        String  @id @default(cuid())
+  name      String // e.g. "Со вкусом утки"
+  sku       String? @unique
+  price     Int? // override product price
+  stock     Int     @default(0)
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Attribute {
+  id        String  @id @default(cuid())
+  key       String
+  value     String
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, key])
+}
+
+model Order {
+  id            String      @id @default(cuid())
+  status        OrderStatus @default(PENDING)
+  paymentId     String?     @unique
+  paymentStatus String?
+  amount        Int // kopecks
+  currency      String      @default("RUB")
+  customerName  String?
+  customerPhone String?
+  customerEmail String?
+  address       String?
+  comment       String?
+  delivery      String?
+  items         OrderItem[]
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  variantId String?
+  name      String
+  price     Int // kopecks at time of order
+  quantity  Int
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}

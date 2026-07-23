@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=file:./prisma/dev.db
+    volumes:
+      - ./prisma/dev.db:/app/prisma/dev.db
+      - ./.env:/app/.env:ro
+    restart: unless-stopped

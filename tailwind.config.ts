@@ -11,6 +11,16 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        brand: {
+          DEFAULT: "#FFD600",
+          dark: "#E6C200",
+          light: "#FFF4B3",
+        },
+        ink: "#1F1F1F",
+        muted: "#6B7280",
+      },
+      fontFamily: {
+        sans: ["Inter", "Arial", "sans-serif"],
       },
     },
   },
