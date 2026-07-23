@@ -4,7 +4,7 @@ import { getProducts } from './lib/products';
 import { ProductCard } from './components/ProductCard';
 import { SectionTitle } from './components/SectionTitle';
 import { assetUrl } from './lib/assets';
-import { Check, X, ArrowRight, ShieldCheck, Award, Truck, Leaf, Heart, Activity, Sparkles, FileText } from 'lucide-react';
+import { Check, X, ArrowRight, ShieldCheck, Award, Truck, Leaf, Heart, Activity, Sparkles } from 'lucide-react';
 import { LightboxImage } from './components/LightboxImage';
 
 export default async function HomePage() {
@@ -14,14 +14,14 @@ export default async function HomePage() {
   const benefits = [
     { icon: Activity, title: 'Здоровые суставы', text: 'Глюкозамин, хондроитин и МСМ' },
     { icon: Heart, title: 'Здоровое сердце', text: 'Омега 3/6/9' },
-    { icon: Sparkles, title: 'Здоровый кишечник', text: 'Комплекс лактобактерий' },
+    { icon: Sparkles, title: 'Здоровый кишечник', text: 'Бактерии для пищеварения' },
     { icon: ShieldCheck, title: 'Здоровая кожа', text: 'Кокосовое масло, витамин C' },
     { icon: Award, title: 'Здоровая печень', text: 'Куркумин Qmin+ и BioPerine' },
   ];
 
   const trustFeatures = [
     { icon: ShieldCheck, title: '100% натурально', text: 'Без синтетики и диоксида титана' },
-    { icon: Leaf, title: '500 мг в снеке', text: 'Высокая дозировка активных компонентов' },
+    { icon: Leaf, title: 'Высокое содержание лизина и метионина', text: 'лизин и метионин' },
     { icon: Award, title: 'Сертифицировано', text: 'Многоэтапный контроль качества' },
     { icon: Truck, title: 'Доставка по РФ', text: 'Быстрая отправка удобным способом' },
   ];
@@ -133,7 +133,7 @@ export default async function HomePage() {
             <div className="grid items-center lg:grid-cols-2">
               <div className="flex flex-col justify-center p-4 md:p-8 lg:p-14">
                 <h2 className="mb-6 text-2xl font-bold md:text-3xl lg:text-4xl">Состав, который работает</h2>
-                <p className="mb-8 text-muted">Дегидратированное мясо утки и индейки, овес, горох, льняное семя, кокосовое масло, куркума, Qmin+ (экстракт куркумина), BioPerine, глюкозамин, хондроитин, МСМ, витамины C и D3, комплекс лактобактерий.</p>
+                <p className="mb-8 text-muted">Дегидратированное мясо утки и индейки, овес, горох, льняное семя, кокосовое масло, куркума, Qmin+ (экстракт куркумина), BioPerine, глюкозамин, хондроитин, МСМ, витамины C и D3, бактерии для пищеварения.</p>
                 <ul className="space-y-3">
                   {['Высокая дозировка 500 мг', 'Максимальная усвояемость', 'Эффективная формула с куркуминоидами ≥ 95%', 'Не вызывает побочных эффектов и дискомфорта'].map((i) => (
                     <li key={i} className="flex items-center gap-3"><span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600"><Check className="h-4 w-4" /></span><span>{i}</span></li>
@@ -204,29 +204,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Documents */}
-      <section className="section bg-gray-50">
-        <div className="container-site max-w-6xl">
-          <SectionTitle title="Документация и состав" subtitle="Полный состав, рекомендации и технические данные" />
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              { img: 'page_2.png', title: 'Состав и дозировка' },
-              { img: 'page_3.png', title: 'Состав со вкусом утки' },
-              { img: 'page_4.png', title: 'Поддержка суставов' },
-            ].map((p) => (
-              <LightboxImage key={p.img} src={assetUrl(`/images/pdf/${p.img}`)!} alt={p.title} className="group block overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm card-hover animate-fade-in-up cursor-zoom-in">
-                <div className="flex items-center gap-2 border-b border-gray-100 bg-brand/10 px-5 py-3">
-                  <FileText className="h-5 w-5 text-ink" />
-                  <span className="font-semibold text-ink">{p.title}</span>
-                </div>
-                <div className="bg-gray-50 p-4">
-                  <Image src={assetUrl(`/images/pdf/${p.img}`)!} alt={p.title} width={1600} height={400} className="h-auto w-full rounded-xl object-contain transition duration-500 group-hover:scale-[1.02]" />
-                </div>
-              </LightboxImage>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Featured product */}
       {product && (
