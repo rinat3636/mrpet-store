@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Lightbox } from './Lightbox';
+import { assetUrl } from '../lib/assets';
 
 export function LightboxImage({
   src,
@@ -15,6 +16,7 @@ export function LightboxImage({
   children: React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
+  const resolvedSrc = assetUrl(src) || src;
   return (
     <>
       <button
@@ -25,7 +27,7 @@ export function LightboxImage({
       >
         {children}
       </button>
-      <Lightbox src={src} alt={alt} isOpen={open} onClose={() => setOpen(false)} />
+      <Lightbox src={resolvedSrc} alt={alt} isOpen={open} onClose={() => setOpen(false)} />
     </>
   );
 }

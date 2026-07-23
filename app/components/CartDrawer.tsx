@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '../lib/cart';
 import { formatPrice } from '../lib/utils';
+import { assetUrl } from '../lib/assets';
 
 export function CartDrawer() {
   const { items, isOpen, setIsOpen, total, count, updateQuantity, removeItem } = useCart();
@@ -33,7 +34,7 @@ export function CartDrawer() {
                 <div key={`${item.productId}-${item.variantId}`} className="flex gap-4 rounded-xl border p-3">
                   <div className="relative h-20 w-20 overflow-hidden rounded-lg bg-gray-100">
                     {item.image ? (
-                      <Image src={item.image} alt={item.name} fill className="object-cover" />
+                      <Image src={assetUrl(item.image)!} alt={item.name} fill className="object-cover" />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center text-xs text-muted">Нет фото</div>
                     )}

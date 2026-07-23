@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getProducts } from './lib/products';
 import { ProductCard } from './components/ProductCard';
 import { SectionTitle } from './components/SectionTitle';
+import { assetUrl } from './lib/assets';
 import { Check, X, ArrowRight, ShieldCheck, Award, Truck, Leaf, Heart, Activity, Sparkles, FileText } from 'lucide-react';
 import { LightboxImage } from './components/LightboxImage';
 
@@ -85,9 +86,9 @@ export default async function HomePage() {
         <div className="container-site">
           <div className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
             <div className="grid items-center lg:grid-cols-2">
-              <LightboxImage src="/images/products/product-main-3.jpg" alt="Когда принимать функциональные снеки" className="group flex w-full cursor-zoom-in items-center justify-center bg-gray-50 p-4 md:p-8 lg:p-10">
+              <LightboxImage src={assetUrl('/images/products/product-main-3.jpg')!} alt="Когда принимать функциональные снеки" className="group flex w-full cursor-zoom-in items-center justify-center bg-gray-50 p-4 md:p-8 lg:p-10">
                 <div className="relative w-full max-w-sm transition duration-500 group-hover:scale-[1.02] md:max-w-md">
-                  <Image src="/images/products/product-main-3.jpg" alt="Когда принимать функциональные снеки" width={400} height={520} className="h-auto w-full rounded-2xl object-contain" />
+                  <Image src={assetUrl('/images/products/product-main-3.jpg')!} alt="Когда принимать функциональные снеки" width={400} height={520} className="h-auto w-full rounded-2xl object-contain" />
                 </div>
               </LightboxImage>
               <div className="flex flex-col justify-center p-4 md:p-8 lg:p-14">
@@ -139,9 +140,9 @@ export default async function HomePage() {
                   ))}
                 </ul>
               </div>
-              <LightboxImage src="/images/products/product-main-1.jpg" alt="Состав и питательная ценность Mr.Pet" className="group flex w-full cursor-zoom-in items-center justify-center bg-gray-50 p-4 md:p-8 lg:p-10">
+              <LightboxImage src={assetUrl('/images/products/product-main-1.jpg')!} alt="Состав и питательная ценность Mr.Pet" className="group flex w-full cursor-zoom-in items-center justify-center bg-gray-50 p-4 md:p-8 lg:p-10">
                 <div className="relative w-full max-w-sm transition duration-500 group-hover:scale-[1.02] md:max-w-md">
-                  <Image src="/images/products/product-main-1.jpg" alt="Состав и питательная ценность Mr.Pet" width={400} height={520} className="h-auto w-full rounded-2xl object-contain" />
+                  <Image src={assetUrl('/images/products/product-main-1.jpg')!} alt="Состав и питательная ценность Mr.Pet" width={400} height={520} className="h-auto w-full rounded-2xl object-contain" />
                 </div>
               </LightboxImage>
             </div>
@@ -155,8 +156,8 @@ export default async function HomePage() {
           <SectionTitle title="Этапы восстановления активности" subtitle="Результат регулярного приёма натуральных снеков" />
           <div className="grid gap-8 md:grid-cols-2">
             {[
-              { img: '/images/products/product-recovery.jpg', title: 'Динамика улучшений', alt: 'Этапы восстановления до и после' },
-              { img: '/images/products/product-compare.jpg', title: 'Сравнение состояния', alt: 'Сравнение до и после приёма БАД' },
+              { img: assetUrl('/images/products/product-recovery.jpg')!, title: 'Динамика улучшений', alt: 'Этапы восстановления до и после' },
+              { img: assetUrl('/images/products/product-compare.jpg')!, title: 'Сравнение состояния', alt: 'Сравнение до и после приёма БАД' },
             ].map((b) => (
               <LightboxImage key={b.title} src={b.img} alt={b.alt} className="group block overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm card-hover animate-fade-in-up cursor-zoom-in">
                 <div className="relative w-full bg-gray-50">
@@ -176,9 +177,9 @@ export default async function HomePage() {
         <div className="container-site">
           <SectionTitle title="Выбирайте качество и безопасность" subtitle="Почему Mr.Pet лучше типичных БАД для питомцев" />
           <div className="grid items-center gap-8 md:grid-cols-2">
-            <LightboxImage src="/images/products/product-quality.jpg" alt="Сравнение Mr.Pet с другим брендом" className="group flex w-full cursor-zoom-in items-center justify-center rounded-3xl border border-gray-100 bg-gray-50 p-4 md:p-8">
+            <LightboxImage src={assetUrl('/images/products/product-quality.jpg')!} alt="Сравнение Mr.Pet с другим брендом" className="group flex w-full cursor-zoom-in items-center justify-center rounded-3xl border border-gray-100 bg-gray-50 p-4 md:p-8">
               <div className="relative w-full max-w-sm transition duration-500 group-hover:scale-[1.02] md:max-w-md">
-                <Image src="/images/products/product-quality.jpg" alt="Сравнение Mr.Pet с другим брендом" width={500} height={650} className="h-auto w-full rounded-2xl object-contain" />
+                <Image src={assetUrl('/images/products/product-quality.jpg')!} alt="Сравнение Mr.Pet с другим брендом" width={500} height={650} className="h-auto w-full rounded-2xl object-contain" />
               </div>
             </LightboxImage>
             <div className="grid gap-6">
@@ -213,13 +214,13 @@ export default async function HomePage() {
               { img: 'page_3.png', title: 'Состав со вкусом утки' },
               { img: 'page_4.png', title: 'Поддержка суставов' },
             ].map((p) => (
-              <LightboxImage key={p.img} src={`/images/pdf/${p.img}`} alt={p.title} className="group block overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm card-hover animate-fade-in-up cursor-zoom-in">
+              <LightboxImage key={p.img} src={assetUrl(`/images/pdf/${p.img}`)!} alt={p.title} className="group block overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm card-hover animate-fade-in-up cursor-zoom-in">
                 <div className="flex items-center gap-2 border-b border-gray-100 bg-brand/10 px-5 py-3">
                   <FileText className="h-5 w-5 text-ink" />
                   <span className="font-semibold text-ink">{p.title}</span>
                 </div>
                 <div className="bg-gray-50 p-4">
-                  <Image src={`/images/pdf/${p.img}`} alt={p.title} width={1600} height={400} className="h-auto w-full rounded-xl object-contain transition duration-500 group-hover:scale-[1.02]" />
+                  <Image src={assetUrl(`/images/pdf/${p.img}`)!} alt={p.title} width={1600} height={400} className="h-auto w-full rounded-xl object-contain transition duration-500 group-hover:scale-[1.02]" />
                 </div>
               </LightboxImage>
             ))}

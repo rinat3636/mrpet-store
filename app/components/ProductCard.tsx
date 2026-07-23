@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useCart } from '../lib/cart';
 import { formatPriceShort } from '../lib/utils';
+import { assetUrl } from '../lib/assets';
 import { ShoppingCart } from 'lucide-react';
 
 export function ProductCard({ product }: { product: any }) {
@@ -29,7 +30,7 @@ export function ProductCard({ product }: { product: any }) {
       <Link href={`/catalog/${product.slug}`} className="flex flex-1 flex-col">
         <div className="relative aspect-[3/4] w-full overflow-hidden bg-gray-50">
           {image ? (
-            <Image src={image} alt={product.name} fill priority className="object-cover transition duration-700 group-hover:scale-110" />
+            <Image src={assetUrl(image)!} alt={product.name} fill priority className="object-cover transition duration-700 group-hover:scale-110" />
           ) : (
             <div className="flex h-full w-full items-center justify-center text-muted">Нет фото</div>
           )}

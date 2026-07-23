@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { ShoppingCart, Menu, X } from 'lucide-react';
 import { useCart } from '../lib/cart';
 import { useState } from 'react';
+import { assetUrl } from '../lib/assets';
 
 const nav = [
   { href: '/', label: 'Главная' },
@@ -21,7 +22,7 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
       <div className="container-site flex h-16 items-center justify-between">
         <Link href="/" className="flex items-center gap-2">
-          <Image src="/images/logo.svg" alt="Mr.Pet" width={100} height={30} className="h-auto w-24 sm:w-28" priority />
+          <Image src={assetUrl('/images/logo.svg')!} alt="Mr.Pet" width={100} height={30} className="h-auto w-24 sm:w-28" priority />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">

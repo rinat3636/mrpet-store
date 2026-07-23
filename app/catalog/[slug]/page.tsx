@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { getProductBySlug, getProducts } from '../../lib/products';
+import { assetUrl } from '../../lib/assets';
 import { ProductActions } from '../../components/ProductActions';
 import { ImageGallery } from '../../components/ImageGallery';
 import { SectionTitle } from '../../components/SectionTitle';
@@ -74,13 +75,13 @@ export default async function ProductPage({ params }: { params: { slug: string }
               { img: 'page_3.png', title: 'Состав со вкусом утки' },
               { img: 'page_4.png', title: 'Поддержка суставов' },
             ].map((p) => (
-              <LightboxImage key={p.img} src={`/images/pdf/${p.img}`} alt={p.title} className="group block overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm card-hover cursor-zoom-in">
+              <LightboxImage key={p.img} src={assetUrl(`/images/pdf/${p.img}`)!} alt={p.title} className="group block overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm card-hover cursor-zoom-in">
                 <div className="flex items-center gap-2 border-b border-gray-100 bg-brand/10 px-5 py-3">
                   <FileText className="h-5 w-5 text-ink" />
                   <span className="font-semibold text-ink">{p.title}</span>
                 </div>
                 <div className="bg-gray-50 p-4">
-                  <Image src={`/images/pdf/${p.img}`} alt={p.title} width={1600} height={400} className="h-auto w-full rounded-xl object-contain transition duration-500 group-hover:scale-[1.02]" />
+                  <Image src={assetUrl(`/images/pdf/${p.img}`)!} alt={p.title} width={1600} height={400} className="h-auto w-full rounded-xl object-contain transition duration-500 group-hover:scale-[1.02]" />
                 </div>
               </LightboxImage>
             ))}

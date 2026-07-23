@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { LightboxImage } from './LightboxImage';
+import { assetUrl } from '../lib/assets';
 
 export function ImageGallery({ images }: { images: { url: string; alt?: string | null }[] }) {
   const [idx, setIdx] = useState(0);
@@ -13,14 +14,14 @@ export function ImageGallery({ images }: { images: { url: string; alt?: string |
     <div className="flex flex-col gap-4">
       <div className="group relative w-full overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
         <LightboxImage
-          src={images[idx].url}
+          src={assetUrl(images[idx].url)}
           alt={images[idx].alt || ''}
           className="relative block h-full w-full cursor-zoom-in"
         >
           <div className="relative aspect-[3/4] w-full">
             <Image
               key={images[idx].url}
-              src={images[idx].url}
+              src={assetUrl(images[idx].url)!}
               alt={images[idx].alt || ''}
               fill
               priority
@@ -52,7 +53,7 @@ export function ImageGallery({ images }: { images: { url: string; alt?: string |
             onClick={() => setIdx(i)}
             className={`relative aspect-[3/4] overflow-hidden rounded-xl bg-gray-50 p-0.5 ring-2 transition-all duration-200 hover:ring-brand/50 ${idx === i ? 'ring-brand' : 'ring-transparent'}`}
           >
-            <Image src={img.url} alt={img.alt || ''} fill className="object-contain transition duration-300 hover:scale-110" />
+            <Image src={assetUrl(img.url)!} alt={img.alt || ''} fill className="object-contain transition duration-300 hover:scale-110" />
           </button>
         ))}
       </div>

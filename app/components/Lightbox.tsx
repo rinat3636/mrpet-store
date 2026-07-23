@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
+import { assetUrl } from '../lib/assets';
 
 export function Lightbox({
   src,
@@ -55,7 +56,7 @@ export function Lightbox({
         onClick={(e) => e.stopPropagation()}
       >
         <img
-          src={src}
+          src={assetUrl(src)!}
           alt={alt}
           className={imageClass}
           onLoad={(e) => {
