@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { getProducts } from './lib/products';
 import { ProductCard } from './components/ProductCard';
 import { OzonReviewsCta } from './components/OzonReviewsCta';
+import { HowItWorks } from './components/HowItWorks';
 import { SectionTitle } from './components/SectionTitle';
 import { assetUrl } from './lib/assets';
 import { Check, X, ArrowRight, ExternalLink, ShieldCheck, Award, Truck, Leaf, Heart, Activity, Sparkles } from 'lucide-react';
@@ -256,6 +257,8 @@ export default async function HomePage() {
           </div>
         </section>
       )}
+
+      <HowItWorks url={process.env.NEXT_PUBLIC_OZON_URL} />
 
       <OzonReviewsCta url={process.env.NEXT_PUBLIC_OZON_URL} />
 

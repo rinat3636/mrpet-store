@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useCart } from '../lib/cart';
 import { formatPrice } from '../lib/utils';
-import { Loader2 } from 'lucide-react';
+import { Loader2, ExternalLink, ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
 import { ScrollReveal } from '../components/ScrollReveal';
 
@@ -20,12 +20,24 @@ export default function CheckoutPage() {
     comment: '',
   });
 
+  const ozonUrl = process.env.NEXT_PUBLIC_OZON_URL;
+
   if (items.length === 0) {
     return (
       <section className="section bg-white">
         <div className="container-site text-center">
           <h1 className="mb-4 text-2xl font-bold">Корзина пуста</h1>
-          <p className="text-muted">Добавьте товары, чтобы оформить заказ.</p>
+          <p className="mb-6 text-muted">Заказать можно прямо на Ozon — быстрая доставка по всей России.</p>
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+            {ozonUrl && (
+              <a href={ozonUrl} target="_blank" rel="noopener noreferrer" className="btn-brand">
+                <ExternalLink className="mr-2 h-4 w-4" /> Заказать на Ozon
+              </a>
+            )}
+            <a href="/catalog" className="btn-outline">
+              <ShoppingBag className="mr-2 h-4 w-4" /> В каталог
+            </a>
+          </div>
         </div>
       </section>
     );
