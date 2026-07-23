@@ -135,7 +135,7 @@ export default async function HomePage() {
                 <h2 className="mb-6 text-2xl font-bold md:text-3xl lg:text-4xl">Состав, который работает</h2>
                 <p className="mb-8 text-muted">Дегидратированное мясо утки и индейки, овес, горох, льняное семя, кокосовое масло, куркума, Qmin+ (экстракт куркумина), BioPerine, глюкозамин, хондроитин, МСМ, витамины C и D3, бактерии для пищеварения.</p>
                 <ul className="space-y-3">
-                  {['Высокая дозировка 500 мг', 'Максимальная усвояемость', 'Эффективная формула с куркуминоидами ≥ 95%', 'Не вызывает побочных эффектов и дискомфорта'].map((i) => (
+                  {['Высокое содержание лизина и метионина', 'Максимальная усвояемость', 'Эффективная формула с куркуминоидами ≥ 95%', 'Не вызывает побочных эффектов и дискомфорта'].map((i) => (
                     <li key={i} className="flex items-center gap-3"><span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-600"><Check className="h-4 w-4" /></span><span>{i}</span></li>
                   ))}
                 </ul>
@@ -186,7 +186,7 @@ export default async function HomePage() {
               <div className="rounded-3xl border border-gray-100 bg-green-50/60 p-6 shadow-sm md:p-8">
                 <h3 className="mb-5 flex items-center gap-2 text-xl font-bold text-green-800"><Check className="h-6 w-6" /> Mr.Pet</h3>
                 <ul className="space-y-3">
-                  {['100% натуральный состав', 'Высокая дозировка 500 мг', 'Сертифицированное производство', 'Независимый контроль качества', 'Без побочных эффектов и дискомфорта'].map((i) => (
+                  {['100% натуральный состав', 'Высокое содержание лизина и метионина', 'Сертифицированное производство', 'Независимый контроль качества', 'Без побочных эффектов и дискомфорта'].map((i) => (
                     <li key={i} className="flex items-center gap-2"><Check className="h-5 w-5 text-green-600" />{i}</li>
                   ))}
                 </ul>
