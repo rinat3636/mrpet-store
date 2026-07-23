@@ -84,7 +84,7 @@ export function ProductActions({ product }: { product: ProductWithRelations }) {
           rel="noopener noreferrer"
           className="btn-brand animate-pulse-glow flex w-full items-center justify-center text-base md:text-lg"
         >
-          <ExternalLink className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" /> Купить на Ozon
+          <ExternalLink className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" /> Заказать
         </a>
       ) : (
         <button onClick={handleAdd} disabled={!price} className="btn-brand w-full text-base md:text-lg disabled:opacity-50">

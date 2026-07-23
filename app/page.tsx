@@ -262,7 +262,7 @@ export default async function HomePage() {
           <h2 className="mb-4 text-2xl font-bold md:text-3xl">Готовы поддержать здоровье питомца?</h2>
           <p className="mb-8 text-base text-gray-300 md:text-lg">Оформите заказ на Ozon — быстро и безопасно.</p>
           <a href={process.env.NEXT_PUBLIC_OZON_URL || '/catalog'} target="_blank" rel="noopener noreferrer" className="btn-brand animate-pulse-glow inline-block px-8 py-4 text-lg">
-            Купить Mr.Pet на Ozon
+            Заказать на Ozon
           </a>
         </ScrollReveal>
       </section>

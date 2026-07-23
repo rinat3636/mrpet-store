@@ -6,7 +6,7 @@ test.describe('Mr.Pet storefront', () => {
     await expect(page).toHaveTitle(/Mr\.Pet/);
     await expect(page.locator('h1')).toContainText('Mr.Pet');
     await expect(page.locator('text=Когда принимать?')).toBeVisible();
-    await expect(page.getByRole('link', { name: 'Купить Mr.Pet на Ozon' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Заказать на Ozon' })).toBeVisible();
   });
 
   test('catalog page lists the product', async ({ page }) => {
@@ -19,7 +19,7 @@ test.describe('Mr.Pet storefront', () => {
   test('product page opens and has Ozon purchase link and variants', async ({ page }) => {
     await page.goto('/catalog/mrpet-vitamins-dogs-5in1');
     await expect(page.locator('h1')).toContainText('Mr.Pet');
-    await expect(page.getByRole('link', { name: 'Купить на Ozon' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Заказать' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Поддержка суставов' })).toBeVisible();
     await expect(page.getByRole('button', { name: 'Поддержка жизненной силы' })).toBeVisible();
   });

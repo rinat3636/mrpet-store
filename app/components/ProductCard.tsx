@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useCart } from '../lib/cart';
 import { formatPriceShort } from '../lib/utils';
 import { assetUrl } from '../lib/assets';
-import { ShoppingCart, ExternalLink } from 'lucide-react';
+import { ShoppingCart } from 'lucide-react';
 import { ProductWithRelations } from '../lib/types';
 
 export function ProductCard({ product }: { product: ProductWithRelations }) {
@@ -54,19 +54,17 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
             href={ozonUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex rounded-full bg-brand p-3 text-ink shadow-sm transition-all duration-200 hover:scale-110 hover:bg-brand-dark active:scale-95"
-            aria-label="Купить на Ozon"
+            className="btn-brand py-2 px-4 text-sm"
           >
-            <ExternalLink className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            Заказать
           </a>
         ) : (
           <button
             onClick={handleAdd}
             disabled={!price}
-            className="rounded-full bg-brand p-3 text-ink shadow-sm transition-all duration-200 hover:scale-110 hover:bg-brand-dark disabled:opacity-50 active:scale-95"
-            aria-label="В корзину"
+            className="btn-brand py-2 px-4 text-sm disabled:opacity-50"
           >
-            <ShoppingCart className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
+            <ShoppingCart className="mr-2 h-4 w-4" /> В корзину
           </button>
         )}
       </div>
