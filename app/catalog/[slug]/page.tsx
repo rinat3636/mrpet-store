@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { getProductBySlug, getProducts } from '../../lib/products';
 import { ProductActions } from '../../components/ProductActions';
 import { ProductStickyCta } from '../../components/ProductStickyCta';
+import { OzonReviewsCta } from '../../components/OzonReviewsCta';
 import { ImageGallery } from '../../components/ImageGallery';
 import { ScrollReveal } from '../../components/ScrollReveal';
 import { Info, Package } from 'lucide-react';
@@ -70,6 +71,7 @@ export default async function ProductPage({ params }: { params: { slug: string }
         </div>
       </section>
 
+      <OzonReviewsCta url={process.env.NEXT_PUBLIC_OZON_URL} />
       <ProductStickyCta product={product} />
     </>
   );
