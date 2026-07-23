@@ -21,20 +21,20 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
       <div className="container-site flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2 transition-transform duration-200 hover:scale-105 active:scale-95">
           <Image src={assetUrl('/images/logo.svg')!} alt="Mr.Pet" width={100} height={30} className="h-auto w-24 sm:w-28" priority />
         </Link>
 
         <nav className="hidden items-center gap-6 md:flex">
           {nav.map((n) => (
-            <Link key={n.href} href={n.href} className="text-sm font-medium text-ink hover:underline">
+            <Link key={n.href} href={n.href} className="text-sm font-medium text-ink transition hover:underline hover:scale-105">
               {n.label}
             </Link>
           ))}
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-4">
-          <button onClick={() => setIsOpen(true)} className="relative rounded-full p-2 hover:bg-gray-50" aria-label="Корзина">
+          <button onClick={() => setIsOpen(true)} className="relative rounded-full p-2 transition hover:bg-gray-50 active:scale-95" aria-label="Корзина">
             <ShoppingCart className="h-6 w-6 text-ink" />
             {count > 0 && (
               <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand text-xs font-bold text-ink">
@@ -42,14 +42,14 @@ export function Header() {
               </span>
             )}
           </button>
-          <button className="rounded-full p-2 hover:bg-gray-50 md:hidden" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Меню">
+          <button className="rounded-full p-2 transition hover:bg-gray-50 active:scale-95 md:hidden" onClick={() => setMobileOpen(!mobileOpen)} aria-label="Меню">
             {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-gray-100 bg-white md:hidden">
+        <div className="animate-fade-in border-t border-gray-100 bg-white md:hidden">
           <div className="container-site flex flex-col gap-4 py-4">
             {nav.map((n) => (
               <Link key={n.href} href={n.href} className="font-medium text-ink" onClick={() => setMobileOpen(false)}>

@@ -5,6 +5,7 @@ import { useCart } from '../lib/cart';
 import { formatPrice } from '../lib/utils';
 import { Loader2 } from 'lucide-react';
 import Image from 'next/image';
+import { ScrollReveal } from '../components/ScrollReveal';
 
 export default function CheckoutPage() {
   const { items, total, clear } = useCart();
@@ -56,9 +57,12 @@ export default function CheckoutPage() {
   return (
     <section className="section bg-gray-50">
       <div className="container-site">
-        <h1 className="mb-8 text-2xl font-bold md:text-3xl">Оформление заказа</h1>
+        <ScrollReveal animation="reveal" className="mb-8" threshold={0.1}>
+          <h1 className="text-2xl font-bold md:text-3xl">Оформление заказа</h1>
+        </ScrollReveal>
         <div className="grid gap-8 lg:grid-cols-3">
-          <form onSubmit={handleSubmit} className="space-y-4 lg:col-span-2">
+          <ScrollReveal animation="reveal-left" className="space-y-4 lg:col-span-2" threshold={0.1}>
+            <form onSubmit={handleSubmit} className="space-y-4">
             {error && <div className="rounded-xl bg-red-50 p-4 text-red-700">{error}</div>}
             <div className="rounded-2xl bg-white p-6 shadow-sm">
               <h2 className="mb-4 text-xl font-bold">Контактные данные</h2>
@@ -90,7 +94,7 @@ export default function CheckoutPage() {
                     key={d.id}
                     type="button"
                     onClick={() => setForm({ ...form, delivery: d.id })}
-                    className={`rounded-full border px-4 py-2 text-sm font-medium ${form.delivery === d.id ? 'border-brand bg-brand text-ink' : 'hover:border-brand'}`}
+                    className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 active:scale-95 ${form.delivery === d.id ? 'border-brand bg-brand text-ink shadow-sm' : 'hover:border-brand hover:bg-gray-50'}`}
                   >
                     {d.label}
                   </button>
@@ -105,9 +109,11 @@ export default function CheckoutPage() {
             <button type="submit" disabled={loading} className="btn-brand w-full text-lg">
               {loading ? <Loader2 className="mr-2 h-5 w-5 animate-spin" /> : 'Перейти к оплате через ЮKassa'}
             </button>
-          </form>
+            </form>
+          </ScrollReveal>
 
-          <div className="rounded-2xl bg-white p-6 shadow-sm">
+          <ScrollReveal animation="reveal-right" threshold={0.1}>
+          <div className="rounded-2xl bg-white p-6 shadow-sm transition duration-300 hover:shadow-md">
             <h2 className="mb-4 text-xl font-bold">Ваш заказ</h2>
             <div className="space-y-4">
               {items.map((item) => (
@@ -130,6 +136,7 @@ export default function CheckoutPage() {
               </div>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

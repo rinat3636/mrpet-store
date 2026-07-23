@@ -57,7 +57,7 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
             className="inline-flex rounded-full bg-brand p-3 text-ink shadow-sm transition-all duration-200 hover:scale-110 hover:bg-brand-dark active:scale-95"
             aria-label="Купить на Ozon"
           >
-            <ExternalLink className="h-5 w-5" />
+            <ExternalLink className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         ) : (
           <button
@@ -66,7 +66,7 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
             className="rounded-full bg-brand p-3 text-ink shadow-sm transition-all duration-200 hover:scale-110 hover:bg-brand-dark disabled:opacity-50 active:scale-95"
             aria-label="В корзину"
           >
-            <ShoppingCart className="h-5 w-5" />
+            <ShoppingCart className="h-5 w-5 transition-transform duration-300 group-hover:rotate-12" />
           </button>
         )}
       </div>

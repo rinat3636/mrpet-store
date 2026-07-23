@@ -34,7 +34,7 @@ export function ProductActions({ product }: { product: ProductWithRelations }) {
   };
 
   return (
-    <div className="rounded-3xl border border-gray-100 bg-white p-5 shadow-lg lg:p-6">
+    <div className="group rounded-3xl border border-gray-100 bg-white p-5 shadow-lg transition-shadow duration-300 hover:shadow-xl lg:p-6">
       <div className="mb-5 flex items-baseline gap-3">
         <span className="text-xl font-extrabold text-ink md:text-2xl">{priceLabel}</span>
         {product.oldPrice && price && (
@@ -50,7 +50,7 @@ export function ProductActions({ product }: { product: ProductWithRelations }) {
               <button
                 key={v.id}
                 onClick={() => setSelectedVariant(v.id)}
-                className={`flex-1 rounded-full border px-3 py-2 text-sm font-semibold transition-all duration-200 sm:flex-none sm:px-4 ${
+                className={`flex-1 rounded-full border px-3 py-2 text-sm font-semibold transition-all duration-200 active:scale-95 sm:flex-none sm:px-4 ${
                   selectedVariant === v.id ? 'border-brand bg-brand text-ink shadow-sm' : 'border-gray-200 bg-white hover:border-brand hover:bg-gray-50'
                 }`}
               >
@@ -65,9 +65,9 @@ export function ProductActions({ product }: { product: ProductWithRelations }) {
         <div>
           <label className="mb-1 block text-sm font-medium text-ink">Количество</label>
           <div className="inline-flex items-center rounded-full border border-gray-200 bg-white">
-            <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="rounded-l-full p-2.5 hover:bg-gray-50 transition"><Minus className="h-4 w-4" /></button>
+            <button onClick={() => setQuantity((q) => Math.max(1, q - 1))} className="rounded-l-full p-2.5 transition hover:bg-gray-50 active:scale-90"><Minus className="h-4 w-4 transition-transform duration-200 group-hover:-translate-x-0.5" /></button>
             <span className="w-10 text-center font-semibold">{quantity}</span>
-            <button onClick={() => setQuantity((q) => q + 1)} className="rounded-r-full p-2.5 hover:bg-gray-50 transition"><Plus className="h-4 w-4" /></button>
+            <button onClick={() => setQuantity((q) => q + 1)} className="rounded-r-full p-2.5 transition hover:bg-gray-50 active:scale-90"><Plus className="h-4 w-4 transition-transform duration-200 group-hover:translate-x-0.5" /></button>
           </div>
         </div>
         {product.pieces ? (
@@ -82,13 +82,13 @@ export function ProductActions({ product }: { product: ProductWithRelations }) {
           href={ozonUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-brand flex w-full items-center justify-center text-base md:text-lg"
+          className="btn-brand animate-pulse-glow flex w-full items-center justify-center text-base md:text-lg"
         >
-          <ExternalLink className="mr-2 h-5 w-5" /> Купить на Ozon
+          <ExternalLink className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" /> Купить на Ozon
         </a>
       ) : (
         <button onClick={handleAdd} disabled={!price} className="btn-brand w-full text-base md:text-lg disabled:opacity-50">
-          <ShoppingCart className="mr-2 h-5 w-5" /> В корзину
+          <ShoppingCart className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" /> В корзину
         </button>
       )}
 

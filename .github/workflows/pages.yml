@@ -51,6 +51,15 @@ jobs:
           NEXT_PUBLIC_SITE_URL: https://rinat3636.github.io/mrpet-store
           NEXT_PUBLIC_OZON_URL: https://ozon.ru/t/D4yNPF1
           DATABASE_URL: file:${{ github.workspace }}/prisma/dev.db
+          COMPANY_FULL_NAME: "ОБЩЕСТВО С ОГРАНИЧЕННОЙ ОТВЕТСТВЕННОСТЬЮ «МИСТЕР ПЕТ»"
+          COMPANY_NAME: "ООО «МИСТЕР ПЕТ»"
+          COMPANY_ADDRESS: "Улица Свободы, 29"
+          COMPANY_INN: "5047268242"
+          COMPANY_KPP: "773301001"
+          BANK_NAME: 'ООО "Банк Точка"'
+          BANK_ACCOUNT: "40702810301500152619"
+          BANK_BIK: "044525104"
+          BANK_CORR: "30101810745374525104"
 
       - name: Create .nojekyll
         run: touch dist/.nojekyll
