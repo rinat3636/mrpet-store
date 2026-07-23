@@ -20,12 +20,12 @@ const productData = {
 };
 
 const images = [
-  { url: '/images/products/product-main-1.jpg', alt: 'Mr.Pet витамины 5В1 для собак', sortOrder: 0 },
-  { url: '/images/products/product-main-2.jpg', alt: 'Mr.Pet снеки для суставов', sortOrder: 1 },
-  { url: '/images/products/product-main-3.jpg', alt: 'Mr.Pet когда принимать', sortOrder: 2 },
-  { url: '/images/products/product-recovery.jpg', alt: 'Этапы восстановления', sortOrder: 3 },
-  { url: '/images/products/product-compare.jpg', alt: 'Сравнение Mr.Pet с другим брендом', sortOrder: 4 },
-  { url: '/images/products/product-quality.jpg', alt: 'Качество и безопасность Mr.Pet', sortOrder: 5 },
+  { url: '/images/products/product-main-2.jpg', alt: 'Mr.Pet снеки для суставов', sortOrder: 0 },
+  { url: '/images/products/product-main-3.jpg', alt: 'Mr.Pet когда принимать', sortOrder: 1 },
+  { url: '/images/products/product-recovery.jpg', alt: 'Этапы восстановления', sortOrder: 2 },
+  { url: '/images/products/product-compare.jpg', alt: 'Сравнение Mr.Pet с другим брендом', sortOrder: 3 },
+  { url: '/images/products/product-quality.jpg', alt: 'Качество и безопасность Mr.Pet', sortOrder: 4 },
+  { url: '/images/products/product-main-1.jpg', alt: 'Mr.Pet витамины 5В1 для собак', sortOrder: 5 },
 ];
 
 const variants = [
