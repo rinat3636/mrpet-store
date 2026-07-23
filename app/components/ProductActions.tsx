@@ -4,15 +4,17 @@ import { useState } from 'react';
 import { useCart } from '../lib/cart';
 import { formatPriceShort } from '../lib/utils';
 import { Minus, Plus, ShoppingCart, Package, ExternalLink } from 'lucide-react';
+import { ProductWithRelations } from '../lib/types';
 
-export function ProductActions({ product }: { product: any }) {
+export function ProductActions({ product }: { product: ProductWithRelations }) {
   const [quantity, setQuantity] = useState(1);
-  const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0]?.id || '');
+  const [selectedVariant, setSelectedVariant] = useState(product.variants?.[0]?.id ?? '');
   const { addItem, setIsOpen } = useCart();
 
-  const variant = product.variants?.find((v: any) => v.id === selectedVariant);
+  const variant = product.variants?.find((v) => v.id === selectedVariant);
   const price = variant?.price ?? product.price;
   const ozonUrl = process.env.NEXT_PUBLIC_OZON_URL;
+  const priceLabel = price ? formatPriceShort(price) : ozonUrl ? 'Цена на Ozon' : formatPriceShort(price);
 
   const handleAdd = () => {
     if (!price) {
@@ -34,17 +36,17 @@ export function ProductActions({ product }: { product: any }) {
   return (
     <div className="rounded-3xl border border-gray-100 bg-white p-5 shadow-lg lg:p-6">
       <div className="mb-5 flex items-baseline gap-3">
-        <span className="text-xl font-extrabold text-ink md:text-2xl">{formatPriceShort(price)}</span>
+        <span className="text-xl font-extrabold text-ink md:text-2xl">{priceLabel}</span>
         {product.oldPrice && price && (
           <span className="text-base text-muted line-through md:text-lg">{formatPriceShort(product.oldPrice)}</span>
         )}
       </div>
 
-      {product.variants?.length > 0 && (
+      {!!product.variants?.length && (
         <div className="mb-5">
           <label className="mb-2 block text-sm font-medium text-ink">Вариант</label>
           <div className="flex flex-wrap gap-2">
-            {product.variants.map((v: any) => (
+            {product.variants?.map((v) => (
               <button
                 key={v.id}
                 onClick={() => setSelectedVariant(v.id)}

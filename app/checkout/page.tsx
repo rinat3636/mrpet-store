@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useCart } from '../lib/cart';
 import { formatPrice } from '../lib/utils';
 import { Loader2 } from 'lucide-react';
@@ -9,7 +8,6 @@ import Image from 'next/image';
 
 export default function CheckoutPage() {
   const { items, total, clear } = useCart();
-  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [form, setForm] = useState({
@@ -17,7 +15,7 @@ export default function CheckoutPage() {
     phone: '',
     email: '',
     address: '',
-    delivery: 'courier',
+    delivery: 'avito',
     comment: '',
   });
 
@@ -48,8 +46,8 @@ export default function CheckoutPage() {
       }
       clear();
       window.location.href = data.confirmation_url;
-    } catch (err: any) {
-      setError(err.message || 'Не удалось создать платёж');
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : 'Не удалось создать платёж');
     } finally {
       setLoading(false);
     }
@@ -83,14 +81,18 @@ export default function CheckoutPage() {
             <div className="rounded-2xl bg-white p-6 shadow-sm">
               <h2 className="mb-4 text-xl font-bold">Доставка</h2>
               <div className="mb-4 flex flex-wrap gap-2">
-                {['courier', 'pickup', 'post'].map((d) => (
+                {[
+                  { id: 'avito', label: 'Авито' },
+                  { id: 'cdek', label: 'СДЭК' },
+                  { id: 'post', label: 'Почта России' },
+                ].map((d) => (
                   <button
-                    key={d}
+                    key={d.id}
                     type="button"
-                    onClick={() => setForm({ ...form, delivery: d })}
-                    className={`rounded-full border px-4 py-2 text-sm font-medium capitalize ${form.delivery === d ? 'border-brand bg-brand text-ink' : 'hover:border-brand'}`}
+                    onClick={() => setForm({ ...form, delivery: d.id })}
+                    className={`rounded-full border px-4 py-2 text-sm font-medium ${form.delivery === d.id ? 'border-brand bg-brand text-ink' : 'hover:border-brand'}`}
                   >
-                    {d === 'courier' ? 'Курьер' : d === 'pickup' ? 'Самовывоз' : 'Почта РФ'}
+                    {d.label}
                   </button>
                 ))}
               </div>

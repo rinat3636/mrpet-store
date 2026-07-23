@@ -8,6 +8,8 @@
 
 # testing
 /coverage
+/screenshots-e2e
+/test-results
 
 # next.js
 /.next/

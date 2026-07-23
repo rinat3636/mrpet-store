@@ -36,7 +36,7 @@ jobs:
           npx prisma migrate deploy
           npm run seed
         env:
-          DATABASE_URL: file:./dev.db
+          DATABASE_URL: file:${{ github.workspace }}/prisma/dev.db
 
       - name: Prepare static export
         run: |
@@ -50,7 +50,7 @@ jobs:
           NEXT_PUBLIC_BASE_PATH: /mrpet-store
           NEXT_PUBLIC_SITE_URL: https://rinat3636.github.io/mrpet-store
           NEXT_PUBLIC_OZON_URL: https://ozon.ru/t/D4yNPF1
-          DATABASE_URL: file:./dev.db
+          DATABASE_URL: file:${{ github.workspace }}/prisma/dev.db
 
       - name: Create .nojekyll
         run: touch dist/.nojekyll

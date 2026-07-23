@@ -1,21 +1,37 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '../../lib/prisma';
 import { yookassa } from '../../lib/yookassa';
+import { CartItem } from '../../lib/types';
+import { CurrencyEnum, LocaleEnum, Items, IConfirmationRedirect } from '@webzaytsev/yookassa-ts-sdk';
+
+interface Customer {
+  name: string;
+  phone: string;
+  email: string;
+  address: string;
+  delivery: string;
+  comment: string;
+}
+
+interface RequestBody {
+  customer: Customer;
+  items: CartItem[];
+}
 
 export async function POST(req: NextRequest) {
-  const body = await req.json();
+  const body = (await req.json()) as RequestBody;
   const { customer, items } = body;
 
   if (!Array.isArray(items) || items.length === 0) {
     return NextResponse.json({ error: 'Корзина пуста' }, { status: 400 });
   }
 
-  const missingPrice = items.some((i: any) => !i.price || i.price <= 0);
+  const missingPrice = items.some((i) => !i.price || i.price <= 0);
   if (missingPrice) {
     return NextResponse.json({ error: 'Цена одного из товаров не установлена' }, { status: 400 });
   }
 
-  const amountKopecks = items.reduce((sum: number, i: any) => sum + i.price * i.quantity, 0);
+  const amountKopecks = items.reduce((sum: number, i: CartItem) => sum + i.price * i.quantity, 0);
   const amountRub = (amountKopecks / 100).toFixed(2);
 
   const order = await prisma.order.create({
@@ -29,7 +45,7 @@ export async function POST(req: NextRequest) {
       delivery: customer.delivery,
       comment: customer.comment,
       items: {
-        create: items.map((i: any) => ({
+        create: items.map((i: CartItem) => ({
           productId: i.productId,
           name: i.name,
           price: i.price,
@@ -42,23 +58,23 @@ export async function POST(req: NextRequest) {
 
   try {
     const payment = await yookassa.payments.create({
-      amount: { value: amountRub, currency: 'RUB' as any },
+      amount: { value: amountRub, currency: CurrencyEnum.RUB },
       confirmation: {
         type: 'redirect',
         return_url: `${process.env.NEXT_PUBLIC_SITE_URL || process.env.YOOKASSA_RETURN_URL || 'http://localhost:3000'}/order/success`,
-        locale: 'ru_RU' as any,
+        locale: LocaleEnum.ru_RU,
       },
       capture: true,
       description: `Заказ ${order.id} в Mr.Pet`,
       metadata: { order_id: order.id },
       receipt: {
         customer: { email: customer.email, phone: customer.phone },
-        items: items.map((i: any) => ({
+        items: items.map((i: CartItem) => ({
           description: i.name.slice(0, 128),
           quantity: Number(i.quantity),
-          amount: { value: (i.price / 100).toFixed(2), currency: 'RUB' as any },
+          amount: { value: (i.price / 100).toFixed(2), currency: CurrencyEnum.RUB },
           vat_code: 1,
-          payment_subject: 'commodity' as any,
+          payment_subject: 'commodity' as Items.PaymentSubject,
         })),
       },
     });
@@ -71,13 +87,14 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       orderId: order.id,
       paymentId: payment.id,
-      confirmation_url: (payment.confirmation as any).confirmation_url,
+      confirmation_url: (payment.confirmation as IConfirmationRedirect).confirmation_url,
     });
-  } catch (err: any) {
+  } catch (err: unknown) {
     await prisma.order.update({
       where: { id: order.id },
       data: { status: 'CANCELLED', paymentStatus: 'error' },
     });
-    return NextResponse.json({ error: err.message || 'Ошибка создания платежа' }, { status: 500 });
+    const message = err instanceof Error ? err.message : 'Ошибка создания платежа';
+    return NextResponse.json({ error: message }, { status: 500 });
   }
 }

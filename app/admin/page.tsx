@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { AdminProduct, AdminOrder } from '../lib/types';
 
 export default function AdminPage() {
   const [password, setPassword] = useState('');
   const [authed, setAuthed] = useState(false);
-  const [products, setProducts] = useState<any[]>([]);
-  const [orders, setOrders] = useState<any[]>([]);
+  const [products, setProducts] = useState<AdminProduct[]>([]);
+  const [orders, setOrders] = useState<AdminOrder[]>([]);
   const [loading, setLoading] = useState(false);
   const [msg, setMsg] = useState('');
 
@@ -46,7 +47,7 @@ export default function AdminPage() {
     }
   }, []);
 
-  const updateProduct = async (id: string, data: any) => {
+  const updateProduct = async (id: string, data: Partial<AdminProduct>) => {
     const pw = localStorage.getItem('mrpet-admin-pw') || password;
     const res = await fetch('/api/admin/products', {
       method: 'PUT',
@@ -138,10 +139,10 @@ export default function AdminPage() {
   );
 }
 
-function ProductEditor({ product, onSave }: { product: any; onSave: (id: string, data: any) => void }) {
+function ProductEditor({ product, onSave }: { product: AdminProduct; onSave: (id: string, data: Partial<AdminProduct>) => void }) {
   const [price, setPrice] = useState(product.price != null ? (product.price / 100).toFixed(2) : '');
   const [oldPrice, setOldPrice] = useState(product.oldPrice != null ? (product.oldPrice / 100).toFixed(2) : '');
-  const [stock, setStock] = useState(product.stock);
+  const [stock, setStock] = useState<string>(product.stock?.toString() ?? '');
   const [active, setActive] = useState(product.isActive);
 
   const save = () => {
