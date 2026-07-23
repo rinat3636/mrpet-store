@@ -234,10 +234,10 @@ export default async function HomePage() {
       <section className="section bg-ink text-white">
         <div className="container-site animate-fade-in-up text-center">
           <h2 className="mb-4 text-2xl font-bold md:text-3xl">Готовы поддержать здоровье питомца?</h2>
-          <p className="mb-8 text-base text-gray-300 md:text-lg">Оформите заказ сейчас. Оплата через ЮKassa — быстро и безопасно.</p>
-          <Link href={product ? `/catalog/${product.slug}` : '/catalog'} className="btn-brand px-8 py-4 text-lg">
-            Заказать Mr.Pet
-          </Link>
+          <p className="mb-8 text-base text-gray-300 md:text-lg">Оформите заказ на Ozon — быстро и безопасно.</p>
+          <a href={process.env.NEXT_PUBLIC_OZON_URL || '/catalog'} target="_blank" rel="noopener noreferrer" className="btn-brand inline-block px-8 py-4 text-lg">
+            Купить Mr.Pet на Ozon
+          </a>
         </div>
       </section>
     </>

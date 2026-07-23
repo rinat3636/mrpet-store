@@ -8,11 +8,11 @@ export default function DeliveryPage() {
 
         <div className="mb-8 rounded-2xl border border-gray-100 p-6 shadow-sm">
           <h2 className="mb-4 flex items-center gap-2 text-xl font-bold"><Truck className="h-5 w-5" /> Доставка</h2>
-          <p className="text-muted">Доставка осуществляется по всей России. Условия, сроки и стоимость будут указаны после заполнения.</p>
+          <p className="text-muted">Доставка осуществляется по всей России. Возможна отправка любым удобным способом.</p>
           <ul className="mt-4 list-disc pl-5 text-muted">
-            <li>Курьерская доставка</li>
-            <li>Самовывоз</li>
-            <li>Почта РФ / СДЭК</li>
+            <li>Авито</li>
+            <li>СДЭК</li>
+            <li>Почта России</li>
           </ul>
         </div>
 

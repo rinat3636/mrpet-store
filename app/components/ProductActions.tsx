@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useCart } from '../lib/cart';
 import { formatPriceShort } from '../lib/utils';
-import { Minus, Plus, ShoppingCart, Package } from 'lucide-react';
+import { Minus, Plus, ShoppingCart, Package, ExternalLink } from 'lucide-react';
 
 export function ProductActions({ product }: { product: any }) {
   const [quantity, setQuantity] = useState(1);
@@ -12,6 +12,7 @@ export function ProductActions({ product }: { product: any }) {
 
   const variant = product.variants?.find((v: any) => v.id === selectedVariant);
   const price = variant?.price ?? product.price;
+  const ozonUrl = process.env.NEXT_PUBLIC_OZON_URL;
 
   const handleAdd = () => {
     if (!price) {
@@ -41,7 +42,7 @@ export function ProductActions({ product }: { product: any }) {
 
       {product.variants?.length > 0 && (
         <div className="mb-5">
-          <label className="mb-2 block text-sm font-medium text-ink">Вкус / вариант</label>
+          <label className="mb-2 block text-sm font-medium text-ink">Вариант</label>
           <div className="flex flex-wrap gap-2">
             {product.variants.map((v: any) => (
               <button
@@ -74,11 +75,22 @@ export function ProductActions({ product }: { product: any }) {
         ) : null}
       </div>
 
-      <button onClick={handleAdd} disabled={!price} className="btn-brand w-full text-base md:text-lg disabled:opacity-50">
-        <ShoppingCart className="mr-2 h-5 w-5" /> В корзину
-      </button>
+      {ozonUrl ? (
+        <a
+          href={ozonUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-brand flex w-full items-center justify-center text-base md:text-lg"
+        >
+          <ExternalLink className="mr-2 h-5 w-5" /> Купить на Ozon
+        </a>
+      ) : (
+        <button onClick={handleAdd} disabled={!price} className="btn-brand w-full text-base md:text-lg disabled:opacity-50">
+          <ShoppingCart className="mr-2 h-5 w-5" /> В корзину
+        </button>
+      )}
 
-      {!price && (
+      {!price && !ozonUrl && (
         <p className="mt-4 text-sm text-amber-600">Цена не установлена. Укажите её в админ-панели, чтобы товар стал доступен для покупки.</p>
       )}
     </div>
