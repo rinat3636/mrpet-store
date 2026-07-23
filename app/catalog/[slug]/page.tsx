@@ -1,11 +1,16 @@
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
-import { getProductBySlug } from '../../lib/products';
+import { getProductBySlug, getProducts } from '../../lib/products';
 import { ProductActions } from '../../components/ProductActions';
 import { ImageGallery } from '../../components/ImageGallery';
 import { SectionTitle } from '../../components/SectionTitle';
 import { LightboxImage } from '../../components/LightboxImage';
 import { Info, Package, FileText, Check } from 'lucide-react';
+
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map((product) => ({ slug: product.slug }));
+}
 
 export default async function ProductPage({ params }: { params: { slug: string } }) {
   const product = await getProductBySlug(params.slug);
