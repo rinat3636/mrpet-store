@@ -52,9 +52,9 @@ export default async function HomePage() {
             <div className="group relative w-full max-w-sm overflow-hidden rounded-3xl border border-gray-100 bg-white p-2 shadow-xl md:max-w-md md:p-3">
               <div className="relative w-full rounded-2xl bg-white">
                 {product?.images[1] ? (
-                  <Image src={product.images[1].url} alt="Mr.Pet — мощный хондропротектор" width={500} height={650} className="h-auto w-full rounded-xl object-contain transition duration-700 group-hover:scale-[1.02]" priority />
+                  <Image src={assetUrl(product.images[1].url)!} alt="Mr.Pet — мощный хондропротектор" width={500} height={650} className="h-auto w-full rounded-xl object-contain transition duration-700 group-hover:scale-[1.02]" priority />
                 ) : product?.images[0] ? (
-                  <Image src={product.images[0].url} alt={product.name} width={500} height={650} className="h-auto w-full rounded-xl object-contain transition duration-700 group-hover:scale-[1.02]" priority />
+                  <Image src={assetUrl(product.images[0].url)!} alt={product.name} width={500} height={650} className="h-auto w-full rounded-xl object-contain transition duration-700 group-hover:scale-[1.02]" priority />
                 ) : (
                   <div className="flex h-96 items-center justify-center text-ink">Mr.Pet</div>
                 )}
