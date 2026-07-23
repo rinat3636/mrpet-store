@@ -14,9 +14,7 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
   const price = product.price;
   const ozonUrl = process.env.NEXT_PUBLIC_OZON_URL;
 
-  const handleAdd = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
+  const handleAdd = () => {
     if (!price) return;
     addItem({
       productId: product.id,
@@ -50,26 +48,28 @@ export function ProductCard({ product }: { product: ProductWithRelations }) {
           </div>
         </div>
       </Link>
-      {ozonUrl ? (
-        <a
-          href={ozonUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="absolute bottom-6 right-6 rounded-full bg-brand p-3 text-ink shadow-sm transition-all duration-200 hover:scale-110 hover:bg-brand-dark active:scale-95"
-          aria-label="Купить на Ozon"
-        >
-          <ExternalLink className="h-5 w-5" />
-        </a>
-      ) : (
-        <button
-          onClick={handleAdd}
-          disabled={!price}
-          className="absolute bottom-6 right-6 rounded-full bg-brand p-3 text-ink shadow-sm transition-all duration-200 hover:scale-110 hover:bg-brand-dark disabled:opacity-50 active:scale-95"
-          aria-label="В корзину"
-        >
-          <ShoppingCart className="h-5 w-5" />
-        </button>
-      )}
+      <div className="absolute bottom-6 right-6">
+        {ozonUrl ? (
+          <a
+            href={ozonUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex rounded-full bg-brand p-3 text-ink shadow-sm transition-all duration-200 hover:scale-110 hover:bg-brand-dark active:scale-95"
+            aria-label="Купить на Ozon"
+          >
+            <ExternalLink className="h-5 w-5" />
+          </a>
+        ) : (
+          <button
+            onClick={handleAdd}
+            disabled={!price}
+            className="rounded-full bg-brand p-3 text-ink shadow-sm transition-all duration-200 hover:scale-110 hover:bg-brand-dark disabled:opacity-50 active:scale-95"
+            aria-label="В корзину"
+          >
+            <ShoppingCart className="h-5 w-5" />
+          </button>
+        )}
+      </div>
     </div>
   );
 }
