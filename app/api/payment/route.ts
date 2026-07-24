@@ -69,12 +69,14 @@ export async function POST(req: NextRequest) {
       metadata: { order_id: order.id },
       receipt: {
         customer: { email: customer.email, phone: customer.phone },
+        tax_system_code: Number(process.env.TAX_SYSTEM_CODE || 1),
         items: items.map((i: CartItem) => ({
           description: i.name.slice(0, 128),
           quantity: Number(i.quantity),
           amount: { value: (i.price / 100).toFixed(2), currency: CurrencyEnum.RUB },
-          vat_code: 1,
+          vat_code: Number(process.env.VAT_CODE || 1),
           payment_subject: 'commodity' as Items.PaymentSubject,
+          payment_mode: 'full_payment' as Items.PaymentMode,
         })),
       },
     });
