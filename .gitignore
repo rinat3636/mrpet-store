@@ -45,5 +45,7 @@ prisma/dev.db-journal
 data/dev.db
 data/dev.db-journal
 data/.seeded
+prisma/prisma/
+.env.build
 logs/
 *.log

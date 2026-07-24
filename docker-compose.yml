@@ -8,13 +8,13 @@ services:
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3000}
         NEXT_PUBLIC_OZON_URL: ${NEXT_PUBLIC_OZON_URL:-https://ozon.ru/t/D4yNPF1}
         NEXT_PUBLIC_BASE_PATH: ${NEXT_PUBLIC_BASE_PATH:-}
-        DATABASE_URL: ${DATABASE_URL:-file:./data/dev.db}
+        DATABASE_URL: ${DATABASE_URL:-file:/app/prisma/build.db}
     ports:
       - "3000:3000"
     env_file:
       - .env
     environment:
-      - DATABASE_URL=${DATABASE_URL:-file:./data/dev.db}
+      - DATABASE_URL=${DATABASE_URL:-file:/app/data/dev.db}
     volumes:
       - db-data:/app/data
       - ./.env:/app/.env:ro
